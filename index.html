@@ -15,6 +15,7 @@
             align-items: center;
             height: 100vh;
             color: #333;
+            overflow-x: hidden;
         }
 
         .container {
@@ -24,6 +25,8 @@
             padding: 30px;
             width: 80%;
             max-width: 700px;
+            overflow-y: auto; /* Aggiungi questa riga per evitare che il contenuto venga tagliato */
+            max-height: 90vh; /* Limita l'altezza */
         }
 
         h2 {
@@ -81,43 +84,8 @@
     <div class="container">
         <h2>Test di Zung - Autovalutazione della Depressione</h2>
         <form id="quizForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-            <script>
-                const domande = [
-                    "Mi sento scoraggiato, depresso e triste",
-                    "La mattina è il momento in cui mi sento meglio",
-                    "Ho crisi di pianto o mi sento come se stessi per piangere",
-                    "Ho problemi di sonno durante la notte",
-                    "Continuo a mangiare tanto quanto mangiavo prima",
-                    "Mi piace ancora avere rapporti sessuali",
-                    "Ho notato che sto perdendo peso",
-                    "Ho problemi di stipsi",
-                    "Il mio cuore batte più velocemente del solito",
-                    "Mi stanco senza motivo",
-                    "La mia mente è lucida quanto prima",
-                    "Trovo facile fare le cose che facevo prima",
-                    "Sono agitato e non riesco a rimanere fermo",
-                    "Sono ottimista riguardo al futuro",
-                    "Sono più irritabile del solito",
-                    "Trovo facile prendere decisioni",
-                    "Mi sento utile e necessario",
-                    "Ho una vita piuttosto intensa",
-                    "Ho la sensazione che gli altri starebbero meglio se io morissi",
-                    "Gradisco ancora fare le cose che facevo prima"
-                ];
-
-                let formHTML = "";
-                domande.forEach((domanda, index) => {
-                    formHTML += `<div class='question'>${index + 1}. ${domanda}<br>
-                        <input type='radio' name='q${index + 1}' value='1' required> Mai
-                        <input type='radio' name='q${index + 1}' value='2'> Qualche volta
-                        <input type='radio' name='q${index + 1}' value='3'> Spesso
-                        <input type='radio' name='q${index + 1}' value='4'> Quasi sempre
-                    </div>`;
-                });
-                document.write(formHTML);
-            </script>
-
-            <!-- Campo nascosto per inviare il punteggio insieme alle risposte -->
+            <div id="questionsContainer"></div> <!-- Aggiungi un contenitore per le domande -->
+            
             <input type="hidden" name="punteggio" id="punteggio">
 
             <button type="button" onclick="calcolaPunteggio()">Calcola Punteggio e Invia</button>
@@ -127,6 +95,42 @@
     </div>
 
     <script>
+        const domande = [
+            "Mi sento scoraggiato, depresso e triste",
+            "La mattina è il momento in cui mi sento meglio",
+            "Ho crisi di pianto o mi sento come se stessi per piangere",
+            "Ho problemi di sonno durante la notte",
+            "Continuo a mangiare tanto quanto mangiavo prima",
+            "Mi piace ancora avere rapporti sessuali",
+            "Ho notato che sto perdendo peso",
+            "Ho problemi di stipsi",
+            "Il mio cuore batte più velocemente del solito",
+            "Mi stanco senza motivo",
+            "La mia mente è lucida quanto prima",
+            "Trovo facile fare le cose che facevo prima",
+            "Sono agitato e non riesco a rimanere fermo",
+            "Sono ottimista riguardo al futuro",
+            "Sono più irritabile del solito",
+            "Trovo facile prendere decisioni",
+            "Mi sento utile e necessario",
+            "Ho una vita piuttosto intensa",
+            "Ho la sensazione che gli altri starebbero meglio se io morissi",
+            "Gradisco ancora fare le cose che facevo prima"
+        ];
+
+        let formHTML = "";
+        domande.forEach((domanda, index) => {
+            formHTML += `<div class='question'>${index + 1}. ${domanda}<br>
+                <input type='radio' name='q${index + 1}' value='1' required> Mai
+                <input type='radio' name='q${index + 1}' value='2'> Qualche volta
+                <input type='radio' name='q${index + 1}' value='3'> Spesso
+                <input type='radio' name='q${index + 1}' value='4'> Quasi sempre
+            </div>`;
+        });
+
+        // Inserisci le domande nel contenitore
+        document.getElementById("questionsContainer").innerHTML = formHTML;
+
         function calcolaPunteggio() {
             let punteggio = 0;
             let domande = document.querySelectorAll('input[type="radio"]:checked');
@@ -135,21 +139,17 @@
                 return;
             }
             domande.forEach(d => punteggio += parseInt(d.value));
-            
-            // Mostra il punteggio e il risultato all'utente
+
             let risultato = "";
             if (punteggio <= 20) risultato = "Basso livello di depressione";
             else if (punteggio <= 40) risultato = "Moderato livello di depressione";
             else if (punteggio <= 60) risultato = "Elevato livello di depressione";
             else risultato = "Grave livello di depressione";
-            
-            // Imposta il punteggio nel campo nascosto per inviarlo a Formspree
+
             document.getElementById("punteggio").value = punteggio;
 
-            // Mostra il risultato sullo schermo
             document.getElementById("result").innerText = "Punteggio: " + punteggio + " - " + risultato;
 
-            // Invia automaticamente il modulo
             document.getElementById("quizForm").submit();
         }
     </script>
