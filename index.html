@@ -39,10 +39,6 @@
             font-size: 16px;
         }
 
-        .question input[type="radio"] {
-            margin-right: 10px;
-        }
-
         button {
             background-color: #4CAF50;
             color: white;
@@ -66,31 +62,16 @@
             font-weight: bold;
             color: #2e8b57;
         }
-
-        .question {
-            padding: 10px;
-            background-color: #f9f9f9;
-            border-radius: 5px;
-            margin: 10px 0;
-        }
-
-        /* Aggiungi un'ombra leggera quando il form è in focus */
-        .container:focus-within {
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        }
     </style>
 </head>
 <body>
     <div class="container">
         <h2>Test di Zung - Autovalutazione della Depressione</h2>
-        <form id="quizForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-            <div id="questionsContainer"></div> <!-- Aggiungi un contenitore per le domande -->
-            
-            <input type="hidden" name="punteggio" id="punteggio"> <!-- Campo nascosto per il punteggio -->
-
+        <form id="quizForm" action="https://formspree.io/f/xblgzdql" method="POST">
+            <div id="questionsContainer"></div>
+            <input type="hidden" name="punteggio" id="punteggio"> 
             <button type="button" onclick="calcolaPunteggio()">Calcola Punteggio e Invia</button>
         </form>
-
         <div class="result" id="result"></div>
     </div>
 
@@ -127,8 +108,6 @@
                 <input type='radio' name='q${index + 1}' value='4'> Quasi sempre
             </div>`;
         });
-
-        // Inserisci le domande nel contenitore
         document.getElementById("questionsContainer").innerHTML = formHTML;
 
         function calcolaPunteggio() {
@@ -146,16 +125,11 @@
             else if (punteggio <= 60) risultato = "Elevato livello di depressione";
             else risultato = "Grave livello di depressione";
 
-            // Mostra il punteggio
             document.getElementById("result").innerText = "Punteggio: " + punteggio + " - " + risultato;
-
-            // Aggiungi il punteggio al campo nascosto
             document.getElementById("punteggio").value = punteggio;
-
-            // Dopo 3 secondi, invia il modulo
             setTimeout(function() {
                 document.getElementById("quizForm").submit();
-            }, 3000); // 3000 ms = 3 secondi
+            }, 3000); 
         }
     </script>
 </body>
