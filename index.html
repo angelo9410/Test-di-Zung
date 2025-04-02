@@ -25,8 +25,8 @@
             padding: 30px;
             width: 80%;
             max-width: 700px;
-            overflow-y: auto; /* Aggiungi questa riga per evitare che il contenuto venga tagliato */
-            max-height: 90vh; /* Limita l'altezza */
+            overflow-y: auto;
+            max-height: 90vh;
         }
 
         h2 {
@@ -86,7 +86,7 @@
         <form id="quizForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
             <div id="questionsContainer"></div> <!-- Aggiungi un contenitore per le domande -->
             
-            <input type="hidden" name="punteggio" id="punteggio">
+            <input type="hidden" name="punteggio" id="punteggio"> <!-- Campo nascosto per il punteggio -->
 
             <button type="button" onclick="calcolaPunteggio()">Calcola Punteggio e Invia</button>
         </form>
@@ -146,11 +146,16 @@
             else if (punteggio <= 60) risultato = "Elevato livello di depressione";
             else risultato = "Grave livello di depressione";
 
-            document.getElementById("punteggio").value = punteggio;
-
+            // Mostra il punteggio
             document.getElementById("result").innerText = "Punteggio: " + punteggio + " - " + risultato;
 
-            document.getElementById("quizForm").submit();
+            // Aggiungi il punteggio al campo nascosto
+            document.getElementById("punteggio").value = punteggio;
+
+            // Dopo 3 secondi, invia il modulo
+            setTimeout(function() {
+                document.getElementById("quizForm").submit();
+            }, 3000); // 3000 ms = 3 secondi
         }
     </script>
 </body>
