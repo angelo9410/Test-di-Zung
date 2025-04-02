@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test di Zung - Autovalutazione della Depressione</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .question { margin-bottom: 15px; }
+        button { margin-top: 20px; padding: 10px; }
+    </style>
+</head>
+<body>
+    <h2>Test di Zung - Autovalutazione della Depressione</h2>
+    <form id="quizForm">
+        <script>
+            const domande = [
+                "Mi sento scoraggiato, depresso e triste",
+                "La mattina è il momento in cui mi sento meglio",
+                "Ho crisi di pianto o mi sento come se stessi per piangere",
+                "Ho problemi di sonno durante la notte",
+                "Continuo a mangiare tanto quanto mangiavo prima",
+                "Mi piace ancora avere rapporti sessuali",
+                "Ho notato che sto perdendo peso",
+                "Ho problemi di stipsi",
+                "Il mio cuore batte più velocemente del solito",
+                "Mi stanco senza motivo",
+                "La mia mente è lucida quanto prima",
+                "Trovo facile fare le cose che facevo prima",
+                "Sono agitato e non riesco a rimanere fermo",
+                "Sono ottimista riguardo al futuro",
+                "Sono più irritabile del solito",
+                "Trovo facile prendere decisioni",
+                "Mi sento utile e necessario",
+                "Ho una vita piuttosto intensa",
+                "Ho la sensazione che gli altri starebbero meglio se io morissi",
+                "Gradisco ancora fare le cose che facevo prima"
+            ];
+
+            let formHTML = "";
+            domande.forEach((domanda, index) => {
+                formHTML += `<div class='question'>${index + 1}. ${domanda}<br>
+                    <input type='radio' name='q${index + 1}' value='1'> Mai
+                    <input type='radio' name='q${index + 1}' value='2'> Qualche volta
+                    <input type='radio' name='q${index + 1}' value='3'> Spesso
+                    <input type='radio' name='q${index + 1}' value='4'> Quasi sempre
+                </div>`;
+            });
+            document.write(formHTML);
+        </script>
+        
+        <button type="button" onclick="calcolaPunteggio()">Calcola Punteggio</button>
+    </form>
+    
+    <h3 id="result"></h3>
+    
+    <script>
+        function calcolaPunteggio() {
+            let punteggio = 0;
+            let domande = document.querySelectorAll('input[type="radio"]:checked');
+            if (domande.length < 20) {
+                alert("Rispondi a tutte le domande!");
+                return;
+            }
+            domande.forEach(d => punteggio += parseInt(d.value));
+            
+            let risultato = "";
+            if (punteggio <= 20) risultato = "Basso livello di depressione";
+            else if (punteggio <= 40) risultato = "Moderato livello di depressione";
+            else if (punteggio <= 60) risultato = "Elevato livello di depressione";
+            else risultato = "Grave livello di depressione";
+            
+            document.getElementById("result").innerText = "Punteggio: " + punteggio + " - " + risultato;
+        }
+    </script>
+</body>
+</html>
