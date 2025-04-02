@@ -1,60 +1,130 @@
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Test di Zung - Autovalutazione della Depressione</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        .question { margin-bottom: 15px; }
-        button { margin-top: 20px; padding: 10px; }
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 80%;
+            max-width: 700px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #4CAF50;
+        }
+
+        .question {
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .question input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #2e8b57;
+        }
+
+        .question {
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+
+        /* Aggiungi un'ombra leggera quando il form è in focus */
+        .container:focus-within {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
     </style>
 </head>
 <body>
-    <h2>Test di Zung - Autovalutazione della Depressione</h2>
-    <!-- Form modificato per inviare le risposte a Formspree -->
-    <form id="quizForm" action="https://formspree.io/f/xblgzdql" method="POST">
-        <script>
-            const domande = [
-                "Mi sento scoraggiato, depresso e triste",
-                "La mattina è il momento in cui mi sento meglio",
-                "Ho crisi di pianto o mi sento come se stessi per piangere",
-                "Ho problemi di sonno durante la notte",
-                "Continuo a mangiare tanto quanto mangiavo prima",
-                "Mi piace ancora avere rapporti sessuali",
-                "Ho notato che sto perdendo peso",
-                "Ho problemi di stipsi",
-                "Il mio cuore batte più velocemente del solito",
-                "Mi stanco senza motivo",
-                "La mia mente è lucida quanto prima",
-                "Trovo facile fare le cose che facevo prima",
-                "Sono agitato e non riesco a rimanere fermo",
-                "Sono ottimista riguardo al futuro",
-                "Sono più irritabile del solito",
-                "Trovo facile prendere decisioni",
-                "Mi sento utile e necessario",
-                "Ho una vita piuttosto intensa",
-                "Ho la sensazione che gli altri starebbero meglio se io morissi",
-                "Gradisco ancora fare le cose che facevo prima"
-            ];
+    <div class="container">
+        <h2>Test di Zung - Autovalutazione della Depressione</h2>
+        <form id="quizForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+            <script>
+                const domande = [
+                    "Mi sento scoraggiato, depresso e triste",
+                    "La mattina è il momento in cui mi sento meglio",
+                    "Ho crisi di pianto o mi sento come se stessi per piangere",
+                    "Ho problemi di sonno durante la notte",
+                    "Continuo a mangiare tanto quanto mangiavo prima",
+                    "Mi piace ancora avere rapporti sessuali",
+                    "Ho notato che sto perdendo peso",
+                    "Ho problemi di stipsi",
+                    "Il mio cuore batte più velocemente del solito",
+                    "Mi stanco senza motivo",
+                    "La mia mente è lucida quanto prima",
+                    "Trovo facile fare le cose che facevo prima",
+                    "Sono agitato e non riesco a rimanere fermo",
+                    "Sono ottimista riguardo al futuro",
+                    "Sono più irritabile del solito",
+                    "Trovo facile prendere decisioni",
+                    "Mi sento utile e necessario",
+                    "Ho una vita piuttosto intensa",
+                    "Ho la sensazione che gli altri starebbero meglio se io morissi",
+                    "Gradisco ancora fare le cose che facevo prima"
+                ];
 
-            let formHTML = "";
-            domande.forEach((domanda, index) => {
-                formHTML += `<div class='question'>${index + 1}. ${domanda}<br>
-                    <input type='radio' name='q${index + 1}' value='1' required> Mai
-                    <input type='radio' name='q${index + 1}' value='2'> Qualche volta
-                    <input type='radio' name='q${index + 1}' value='3'> Spesso
-                    <input type='radio' name='q${index + 1}' value='4'> Quasi sempre
-                </div>`;
-            });
-            document.write(formHTML);
-        </script>
+                let formHTML = "";
+                domande.forEach((domanda, index) => {
+                    formHTML += `<div class='question'>${index + 1}. ${domanda}<br>
+                        <input type='radio' name='q${index + 1}' value='1' required> Mai
+                        <input type='radio' name='q${index + 1}' value='2'> Qualche volta
+                        <input type='radio' name='q${index + 1}' value='3'> Spesso
+                        <input type='radio' name='q${index + 1}' value='4'> Quasi sempre
+                    </div>`;
+                });
+                document.write(formHTML);
+            </script>
 
-        <!-- Campo nascosto per inviare il punteggio insieme alle risposte -->
-        <input type="hidden" name="punteggio" id="punteggio">
+            <!-- Campo nascosto per inviare il punteggio insieme alle risposte -->
+            <input type="hidden" name="punteggio" id="punteggio">
 
-        <button type="button" onclick="calcolaPunteggio()">Calcola Punteggio e Invia</button>
-    </form>
+            <button type="button" onclick="calcolaPunteggio()">Calcola Punteggio e Invia</button>
+        </form>
 
-    <h3 id="result"></h3>
+        <div class="result" id="result"></div>
+    </div>
 
     <script>
         function calcolaPunteggio() {
